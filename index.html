@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpace - Student Mental Health Support</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Comprehensive mental health support for students with AI chatbot, assessments, and professional resources">
+    <meta name="theme-color" content="#218085">
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <!-- Mobile Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h2>🧠 MindSpace</h2>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="nav-links desktop-nav">
+                <button class="nav-link" onclick="showSection('home')" data-section="home">Home</button>
+                <button class="nav-link" onclick="showSection('resources')" data-section="resources">Resources</button>
+                <button class="nav-link" onclick="showSection('assessments')" data-section="assessments">Assessments</button>
+                <button class="nav-link" onclick="showSection('appointments')" data-section="appointments">Appointments</button>
+                <button class="nav-link" onclick="showSection('mood-tracker')" data-section="mood-tracker">Mood Tracker</button>
+                <button class="emergency-btn" onclick="showSection('emergency')" data-section="emergency">🚨 Emergency</button>
+            </div>
+            
+            <!-- Mobile Hamburger Menu -->
+            <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Navigation Overlay -->
+        <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+            <div class="mobile-nav-menu">
+                <button class="mobile-nav-link" onclick="showSection('home'); closeMobileMenu()" data-section="home">🏠 Home</button>
+                <button class="mobile-nav-link" onclick="showSection('resources'); closeMobileMenu()" data-section="resources">📚 Resources</button>
+                <button class="mobile-nav-link" onclick="showSection('assessments'); closeMobileMenu()" data-section="assessments">📝 Assessments</button>
+                <button class="mobile-nav-link" onclick="showSection('appointments'); closeMobileMenu()" data-section="appointments">🗓️ Appointments</button>
+                <button class="mobile-nav-link" onclick="showSection('mood-tracker'); closeMobileMenu()" data-section="mood-tracker">📊 Mood Tracker</button>
+                <button class="emergency-btn mobile-emergency" onclick="showSection('emergency'); closeMobileMenu()" data-section="emergency">🚨 Emergency</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="container">
+                    <div class="hero-content">
+                        <h1 class="hero-title">Your Mental Health Matters</h1>
+                        <p class="hero-subtitle">A safe space for students to find support, resources, and professional help when you need it most.</p>
+                        <div class="hero-actions">
+                            <button class="btn btn--primary btn--lg" onclick="openChatbot()">💬 Chat with AI Support</button>
+                            <button class="btn btn--outline btn--lg" onclick="showSection('assessments')">📝 Take Assessment</button>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="floating-card">
+                            <div class="breathing-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <div class="container">
+                    <h2 class="features-title">How We Can Help</h2>
+                    <div class="features-grid">
+                        <div class="feature-card" onclick="showSection('resources')">
+                            <div class="feature-icon">📚</div>
+                            <h3>Resource Library</h3>
+                            <p>Access curated mental health resources, coping strategies, and wellness guides.</p>
+                        </div>
+                        <div class="feature-card" onclick="showSection('mood-tracker')">
+                            <div class="feature-icon">📊</div>
+                            <h3>Mood Tracking</h3>
+                            <p>Monitor your emotional well-being and identify patterns over time.</p>
+                        </div>
+                        <div class="feature-card" onclick="showSection('appointments')">
+                            <div class="feature-icon">🗓️</div>
+                            <h3>Book Appointments</h3>
+                            <p>Schedule sessions with qualified counselors and mental health professionals.</p>
+                        </div>
+                        <div class="feature-card" onclick="showSection('emergency')">
+                            <div class="feature-icon">🆘</div>
+                            <h3>Crisis Support</h3>
+                            <p>Immediate access to emergency contacts and crisis intervention resources.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources Section -->
+        <section id="resources" class="section">
+            <div class="container">
+                <h2 class="section-title">Mental Health Resources</h2>
+                <div class="search-filter-container">
+                    <div class="search-bar">
+                        <input type="text" id="resource-search" placeholder="Search resources..." class="form-control">
+                    </div>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-category="all">All</button>
+                        <button class="filter-tab" data-category="Mental Health">Mental Health</button>
+                        <button class="filter-tab" data-category="Academic">Academic</button>
+                        <button class="filter-tab" data-category="Wellness">Wellness</button>
+                        <button class="filter-tab" data-category="Social">Social</button>
+                        <button class="filter-tab" data-category="Crisis">Crisis</button>
+                    </div>
+                </div>
+                <div id="resources-grid" class="resources-grid"></div>
+            </div>
+        </section>
+
+        <!-- Assessments Section -->
+        <section id="assessments" class="section">
+            <div class="container">
+                <h2 class="section-title">Self-Assessment Tools</h2>
+                <p class="section-subtitle">These assessments can help you understand your current mental health status. Please note: These are screening tools and not diagnostic instruments.</p>
+                
+                <div class="assessment-cards">
+                    <div class="assessment-card" onclick="startAssessment('phq9')">
+                        <div class="assessment-header">
+                            <h3>PHQ-9 Depression Assessment</h3>
+                            <div class="assessment-icon">🧠</div>
+                        </div>
+                        <p>A brief questionnaire to screen for depression symptoms over the past two weeks.</p>
+                        <div class="assessment-meta">
+                            <span>⏱️ 5 minutes</span>
+                            <span>📊 9 questions</span>
+                        </div>
+                        <button class="btn btn--outline btn--full-width">Start Assessment</button>
+                    </div>
+                    <div class="assessment-card" onclick="startAssessment('gad7')">
+                        <div class="assessment-header">
+                            <h3>GAD-7 Anxiety Assessment</h3>
+                            <div class="assessment-icon">💭</div>
+                        </div>
+                        <p>Evaluate anxiety symptoms and their impact on your daily life.</p>
+                        <div class="assessment-meta">
+                            <span>⏱️ 3 minutes</span>
+                            <span>📊 7 questions</span>
+                        </div>
+                        <button class="btn btn--outline btn--full-width">Start Assessment</button>
+                    </div>
+                    <div class="assessment-card" onclick="startAssessment('stress')">
+                        <div class="assessment-header">
+                            <h3>Student Stress Assessment</h3>
+                            <div class="assessment-icon">📚</div>
+                        </div>
+                        <p>Assess your stress levels related to academic and personal life.</p>
+                        <div class="assessment-meta">
+                            <span>⏱️ 4 minutes</span>
+                            <span>📊 5 questions</span>
+                        </div>
+                        <button class="btn btn--outline btn--full-width">Start Assessment</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Appointments Section -->
+        <section id="appointments" class="section">
+            <div class="container">
+                <h2 class="section-title">Book an Appointment</h2>
+                
+                <div class="appointment-layout">
+                    <div class="counselors-section">
+                        <h3>Available Counselors</h3>
+                        <div id="counselors-grid" class="counselors-grid"></div>
+                    </div>
+                    
+                    <div class="appointment-form-section">
+                        <h3>Schedule Your Session</h3>
+                        <form id="appointment-form" class="appointment-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Select Counselor</label>
+                                    <select id="counselor-select" class="form-control" required>
+                                        <option value="">Choose a counselor...</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Preferred Date</label>
+                                    <input type="date" id="appointment-date" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">Preferred Time</label>
+                                    <select id="appointment-time" class="form-control" required>
+                                        <option value="">Choose a time...</option>
+                                        <option value="09:00">9:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="14:00">2:00 PM</option>
+                                        <option value="15:00">3:00 PM</option>
+                                        <option value="16:00">4:00 PM</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Your Name</label>
+                                    <input type="text" id="patient-name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" id="patient-email" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Schedule Appointment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood Tracker Section -->
+        <section id="mood-tracker" class="section">
+            <div class="container">
+                <h2 class="section-title">Mood Tracker</h2>
+                <div class="mood-layout">
+                    <div class="mood-input-section">
+                        <div class="mood-input">
+                            <h3>How are you feeling today?</h3>
+                            <div class="mood-options" id="mood-options"></div>
+                            <div class="form-group">
+                                <label class="form-label">Optional Notes</label>
+                                <textarea id="mood-notes" class="form-control" rows="3" placeholder="How was your day? What affected your mood?"></textarea>
+                            </div>
+                            <button class="btn btn--primary btn--full-width" onclick="saveMoodEntry()">Save Entry</button>
+                        </div>
+                    </div>
+                    <div class="mood-history-section">
+                        <div class="mood-history">
+                            <h3>Your Mood History</h3>
+                            <div id="mood-chart-container" style="position: relative; height: 300px;">
+                                <canvas id="mood-chart"></canvas>
+                            </div>
+                            <div id="mood-entries" class="mood-entries"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Section -->
+        <section id="emergency" class="section emergency-section">
+            <div class="container">
+                <h2 class="section-title emergency-title">🚨 Crisis Support & Emergency Contacts</h2>
+                <div class="emergency-notice">
+                    <p><strong>If you're in immediate danger, please call 911 or go to your nearest emergency room.</strong></p>
+                </div>
+                
+                <div class="emergency-contacts" id="emergency-contacts"></div>
+                
+                <div class="crisis-resources">
+                    <h3>Immediate Coping Strategies</h3>
+                    <div class="coping-cards">
+                        <div class="coping-card">
+                            <h4>🫁 Breathing Exercise</h4>
+                            <p>Take 4 slow, deep breaths. Inhale for 4 counts, hold for 4, exhale for 6.</p>
+                            <button class="btn btn--outline" onclick="startBreathingExercise()">Start Exercise</button>
+                        </div>
+                        <div class="coping-card">
+                            <h4>🧘 Grounding Technique</h4>
+                            <p>Name 5 things you can see, 4 you can touch, 3 you can hear, 2 you can smell, 1 you can taste.</p>
+                            <button class="btn btn--outline" onclick="startGroundingExercise()">Try It</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Desktop Chatbot -->
+    <div id="chatbot-container" class="chatbot-container desktop-chatbot">
+        <div class="chatbot-header">
+            <h3>🤖 AI Support Assistant</h3>
+            <button class="chatbot-close" onclick="closeChatbot()" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages"></div>
+        <div class="chatbot-input">
+            <input type="text" id="chatbot-input" placeholder="Type your message..." class="form-control">
+            <button onclick="sendMessage()" class="btn btn--primary">Send</button>
+        </div>
+    </div>
+
+    <!-- Mobile Chatbot Fullscreen -->
+    <div id="mobile-chatbot-overlay" class="mobile-chatbot-overlay">
+        <div class="mobile-chatbot-header">
+            <h3>🤖 AI Support Assistant</h3>
+            <button class="mobile-chatbot-close" onclick="closeMobileChatbot()" aria-label="Close chat">&times;</button>
+        </div>
+        <div class="mobile-chatbot-messages" id="mobile-chatbot-messages"></div>
+        <div class="mobile-chatbot-input">
+            <input type="text" id="mobile-chatbot-input" placeholder="Type your message..." class="form-control">
+            <button onclick="sendMobileMessage()" class="btn btn--primary">Send</button>
+        </div>
+    </div>
+
+    <!-- Assessment Modal -->
+    <div id="assessment-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="assessment-title"></h3>
+                <button class="modal-close" onclick="closeAssessment()" aria-label="Close assessment">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="assessment-progress"></div>
+                </div>
+                <div id="assessment-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breathing Exercise Modal -->
+    <div id="breathing-modal" class="modal hidden">
+        <div class="modal-content breathing-modal">
+            <div class="modal-header">
+                <h3>Breathing Exercise</h3>
+                <button class="modal-close" onclick="stopBreathingExercise()" aria-label="Close breathing exercise">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="breathing-circle-large" id="breathing-circle-large">
+                    <span id="breathing-instruction">Breathe</span>
+                </div>
+                <div class="breathing-controls">
+                    <button class="btn btn--outline" onclick="stopBreathingExercise()">Stop</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grounding Exercise Modal -->
+    <div id="grounding-modal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>5-4-3-2-1 Grounding Technique</h3>
+                <button class="modal-close" onclick="stopGroundingExercise()" aria-label="Close grounding exercise">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="grounding-content" class="grounding-content">
+                    <p class="grounding-instruction">Take a deep breath and focus on your surroundings...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button class="floating-chat-btn" onclick="openChatbot()" title="Chat with AI Support" aria-label="Open chat support">
+        💬
+    </button>
+
+    <!-- Pull to Refresh Indicator (Mobile) -->
+    <div id="pull-refresh" class="pull-refresh">
+        <div class="pull-refresh-spinner"></div>
+        <span>Pull to refresh</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
